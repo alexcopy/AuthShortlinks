@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'feedapp',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,26 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'feed.urls'
+
+AUTH_USER_MODEL = 'feedapp.User'
+
+# Auth0 settings
+SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes
+
+SOCIAL_AUTH_AUTH0_SCOPE = [
+    'openid',
+    'profile',
+    'email'
+]
+
+AUTHENTICATION_BACKENDS = {
+    'social_core.backends.auth0.Auth0OAuth2',
+    'django.contrib.auth.backends.ModelBackend'
+}
+
+LOGIN_URL = '/login/auth0'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
