@@ -1,16 +1,10 @@
 /node_modules
-/storage/vkbot
-/storage/vkbot_delete
-/storage/vkbot_ignore
-/storage/audio/
-/public/hot
-/public/storage
-/storage/*.key
 /vendor
 /.idea
 /.vagrant
 Homestead.json
 Homestead.yaml
+redcopy/db.sqlite3
 npm-debug.log
 yarn-error.log
 .env
