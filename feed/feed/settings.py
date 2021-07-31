@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'feedapp.User'
+AUTH_USER_MODEL = 'shorturlsapp.User'
 
 # Application definition
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'feedapp',
+    'shorturlsapp',
 ]
 
 MIDDLEWARE = [

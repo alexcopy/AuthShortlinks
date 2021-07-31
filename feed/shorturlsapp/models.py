@@ -9,7 +9,8 @@ class User(AbstractUser):
 
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    text = models.CharField(max_length=280)
+    long_url = models.CharField(max_length=280)
+    unique_key = models.CharField(max_length=5)
     date_posted = models.DateTimeField(auto_now_add=True)
     hidden = models.BooleanField(default=False)
     date_hidden = models.DateTimeField(blank=True, null=True)
