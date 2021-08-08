@@ -1,24 +1,20 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from urllib.parse import urlparse
+from django.core.exceptions import ValidationError
 
 
-class User(AbstractUser):
-    pass
+class ShortLinks(models.Model):
+    def validate_url(url):
+        if not url:
+            return  # Required error is done the field
+        parsed_url = urlparse(url)
+        if not parsed_url.scheme in ['http', 'https', 'ftp', 'fttps']:
+            raise ValidationError(' Please, check there only HTTP(S), and FTP(S) schemas are allowed!  ')
 
-
-class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    long_url = models.CharField(max_length=280)
-    unique_key = models.CharField(max_length=5)
-    date_posted = models.DateTimeField(auto_now_add=True)
-    hidden = models.BooleanField(default=False)
-    date_hidden = models.DateTimeField(blank=True, null=True)
-    hidden_by = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, blank=True, null=True, related_name='mod_who_hid')
-
-    def __str__(self):
-        return self.text
-
-class Report(models.Model):
-    reported_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    rnd_key = models.CharField(max_length=10, unique=True)
+    origin_url = models.CharField(max_length=255, validators=[validate_url])
+    is_disabled = models.PositiveSmallIntegerField(default=0)
+    redirect_count = models.PositiveIntegerField(default=0)
+    createdAt = models.DateTimeField(auto_now_add=True)
