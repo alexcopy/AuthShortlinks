@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <title>Login Form</title>
+</head>
+<body>
+<section class="hero is-primary is-fullheight">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+                    <form action="" class="box" method="post">
+                        {% csrf_token %}
+                        {{ form.errors }}
+                        {% for field in form.visible_fields %}
+                        <div class="field">
+                            {{ field.errors }}
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </div>
+                        {% endfor %}
+                        {{ form.non_field_errors }}
+                        <div class="field">
+                            <button class="button is-success">
+                                Register
+                            </button>
+                            <div  class="button is-link is-warning is-pulled-right"> <a class="is-link" href="/accounts/login">or please  Log In </a> </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
