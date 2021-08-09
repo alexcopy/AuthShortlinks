@@ -32,10 +32,12 @@ def index(request):
         context['form'] = forms.PostForm()
     return render(request, 'shorturlsapp/index.html', context)
 
+
 @login_required
 def short_url(request, rnd_string):
     context = {'host': request.build_absolute_uri('/')[:-1], 'rnd_key': rnd_string}
     return render(request, 'shorturlsapp/redirect.html', context)
+
 
 @login_required
 def delete_shorturl(request, url_id):
@@ -48,10 +50,11 @@ def delete_shorturl(request, url_id):
 
 def shorturl(request, rnd_string):
     if not len(rnd_string) == 5 or (not request.method == 'GET'):
-        return redirect('index')
-    record = ShortLinks.objects.filter(rnd_key=rnd_string).get()
-    if not record:
-        return redirect('index')
+        return redirect('shorturlsapp/404.html')
+    record = ShortLinks.objects.filter(rnd_key=rnd_string)
+    if not record.exists():
+        return render(request, 'shorturlsapp/404.html')
+    record = record.get()
     record.redirect_count += 1
     record.save()
     return redirect(record.origin_url)

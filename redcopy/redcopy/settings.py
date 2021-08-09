@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-ny4n*w8l40l&loqd9wyxxk22c@c=y-l6b8k@xa15h&hl4pm=1g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["redcopy.pythonanywhere.com"]
+ALLOWED_HOSTS = []
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 
