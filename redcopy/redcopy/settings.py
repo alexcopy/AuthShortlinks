@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'shorturlsapp',
     'accounts',
+    'blogapp',
 ]
 
 MIDDLEWARE = [
