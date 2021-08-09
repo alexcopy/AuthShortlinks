@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'shorturlsapp',
     'accounts',
     'blogapp',
+    'tinymce',
 ]
 
 MIDDLEWARE = [

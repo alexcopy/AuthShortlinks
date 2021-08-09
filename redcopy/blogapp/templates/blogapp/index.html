@@ -1,0 +1,88 @@
+{% extends 'shorturlsapp/base.html' %}
+{% block title %}Home{% endblock %}
+{% load humanize %}
+{% block main_title %}The Blog APP{% endblock %}
+{% block sub_title %} Hit new button to Create a new blog record{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<form method="POST">
+    {% csrf_token %}
+    <article class="media">
+        <div class="media-content">
+
+            {% for field in form.visible_fields %}
+            <div class="field">
+                <p class="control">
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        {{ field }}
+                    </div>
+                    <div class="control">
+                        <button class="button is-info">Submit</button>
+                    </div>
+                </div>
+                </p>
+            </div>
+            {% if field.errors %}
+            <div class="notification is-danger is-light">
+                <button class="delete"></button>
+                {{ field.errors }}
+            </div>
+            {% endif %}
+
+            {% endfor %}
+
+        </div>
+    </article>
+</form>
+{% endif %}
+
+
+{% if posts %}
+{% for post in posts %}
+<article class="media mt-5">
+    <div class="media-content">
+        <div class="content">
+            <p>
+                <strong>{{ post.origin_url }} | <a href="{{host}}/shortredirect/{{ post.rnd_key }}/">{{host}}/{{ post.rnd_key }}</a> | </strong>
+                <small> Added: {{ post.createdAt|naturaltime }}</small>
+                 | <span>Number of redirects: {{post.redirect_count}}</span>
+                <br>
+            </p>
+        </div>
+    </div>
+    {% if post.user == request.user %}
+    <div class="media-right">
+        <a href="{% url 'delete_post' post.id %}" class="delete"></a>
+    </div>
+    {% elif user.is_authenticated %}
+    <div class="media-right">
+        <a href="{% url 'report_post' post.id %}"><span class="tag is-warning">report</span></a>
+    </div>
+    {% endif %}
+</article>
+{% endfor %}
+{% else %}
+<article class="media">
+    <div class="media-content">
+        <div class="content has-text-centered">
+            <p>There are no Short URls.</p>
+        </div>
+    </div>
+</article>
+{% endif %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            const $notification = $delete.parentNode;
+
+            $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+            });
+        });
+    });
+</script>
+{% endblock %}
+
+
