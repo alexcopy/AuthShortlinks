@@ -1,11 +1,25 @@
 {% extends 'shorturlsapp/base.html' %}
 {% block title %}Home{% endblock %}
 {% load humanize %}
+{% load crispy_forms_tags %}
 {% block main_title %}The Blog APP{% endblock %}
 {% block sub_title %} Hit new button to Create a new blog record{% endblock %}
 {% block content %}
 
 {% if user.is_authenticated %}
+<div class="col-4 offset-4 mb-5 mt-5">
+    <h3>{{ title }} an article</h3>
+    {{ form.media }}
+    <form method="POST" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+</div>
+
+
+
 <form method="POST">
     {% csrf_token %}
     <article class="media">
@@ -40,16 +54,17 @@
 
 
 {% if posts %}
-{% for post in posts %}
+{% for post in object_list %}
 <article class="media mt-5">
     <div class="media-content">
         <div class="content">
-            <p>
-                <strong>{{ post.origin_url }} | <a href="{{host}}/shortredirect/{{ post.rnd_key }}/">{{host}}/{{ post.rnd_key }}</a> | </strong>
+            <li>
+                <strong>{{ post.title }} | <a href="{{host}}/shortredirect/{{ post.rnd_key }}/">{{host}}/{{ post.rnd_key }}</a> | </strong>
                 <small> Added: {{ post.createdAt|naturaltime }}</small>
-                 | <span>Number of redirects: {{post.redirect_count}}</span>
+                <span>Author: {{post.created_by}}</span>
+                <span>Body: {{post.text}}</span>
                 <br>
-            </p>
+            </li>
         </div>
     </div>
     {% if post.user == request.user %}

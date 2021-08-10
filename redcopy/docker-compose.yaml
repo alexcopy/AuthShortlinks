@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  redis:
+    image: "redis:alpine"
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      SECRET_KEY: "secret"
+      DJANGO_SETTINGS_MODULE: "redcopy.settings"
+    command: "python3 manage.py runserver 0.0.0.0:8000"
+

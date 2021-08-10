@@ -11,6 +11,6 @@ urlpatterns = [
     path('', include('shorturlsapp.urls')),
     path('admin/', admin.site.urls),
     path('short/', include('shorturlsapp.urls')),
-    re_path(r'\/(?P<rnd_string>\w{5})$', shortviews.shorturl),
+    re_path(r'(?P<rnd_string>\w{5})$', shortviews.shorturl),
 
 ]
