@@ -1,3 +1,4 @@
+from django.forms import TextInput
 from tinymce.widgets import TinyMCE
 
 from django import forms
@@ -11,12 +12,10 @@ class TinyMCEWidget(TinyMCE):
 
 
 class PostForm(forms.ModelForm):
-    text = forms.CharField(
-        widget=TinyMCEWidget(
-            attrs={'required': False, 'cols': 30, 'rows': 10}
-        )
-    )
-
     class Meta:
         model = Post
-        fields = ('title', 'text')
+        fields = ['title', 'text']
+        widgets = {
+            'title': TextInput(attrs={'class': 'input', 'placeholder': 'Post Title '}),
+            'text': TinyMCE(attrs={'class': 'input'}),
+        }

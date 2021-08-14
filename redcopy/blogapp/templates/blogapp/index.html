@@ -1,103 +1,45 @@
 {% extends 'shorturlsapp/base.html' %}
-{% block title %}Home{% endblock %}
+{% block title %}Posts List View{% endblock %}
 {% load humanize %}
-{% load crispy_forms_tags %}
-{% block main_title %}The Blog APP{% endblock %}
-{% block sub_title %} Hit new button to Create a new blog record{% endblock %}
+{% block main_title %}The Blog {% endblock %}
 {% block content %}
 
-{% if user.is_authenticated %}
-<div class="col-4 offset-4 mb-5 mt-5">
-    <h3>{{ title }} an article</h3>
-    {{ form.media }}
-    <form method="POST" action="." enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button class="btn btn-primary" type="submit">Submit</button>
-    </form>
 
-</div>
-
-
-
-<form method="POST">
-    {% csrf_token %}
-    <article class="media">
-        <div class="media-content">
-
-            {% for field in form.visible_fields %}
-            <div class="field">
-                <p class="control">
-                <div class="field has-addons">
-                    <div class="control is-expanded">
-                        {{ field }}
-                    </div>
-                    <div class="control">
-                        <button class="button is-info">Submit</button>
-                    </div>
-                </div>
-                </p>
-            </div>
-            {% if field.errors %}
-            <div class="notification is-danger is-light">
-                <button class="delete"></button>
-                {{ field.errors }}
-            </div>
-            {% endif %}
-
-            {% endfor %}
-
-        </div>
-    </article>
-</form>
-{% endif %}
-
-
-{% if posts %}
-{% for post in object_list %}
+{% if blog_posts %}
+{% for post in blog_posts %}
 <article class="media mt-5">
     <div class="media-content">
         <div class="content">
             <li>
-                <strong>{{ post.title }} | <a href="{{host}}/shortredirect/{{ post.rnd_key }}/">{{host}}/{{ post.rnd_key }}</a> | </strong>
-                <small> Added: {{ post.createdAt|naturaltime }}</small>
-                <span>Author: {{post.created_by}}</span>
-                <span>Body: {{post.text}}</span>
+                <strong><a href="{% url 'post_view' post.pk %}">{{ post.title }}</a>  | </strong>
+                <small> Added: {{ post.created_at| naturaltime }}</small>
+                <span>Author: {{post.created_by.username}}</span>
                 <br>
             </li>
         </div>
     </div>
-    {% if post.user == request.user %}
+    {% if post.created_by == request.user %}
     <div class="media-right">
         <a href="{% url 'delete_post' post.id %}" class="delete"></a>
     </div>
     {% elif user.is_authenticated %}
     <div class="media-right">
-        <a href="{% url 'report_post' post.id %}"><span class="tag is-warning">report</span></a>
+        <a><span class="tag is-warning">view post</span></a>
     </div>
     {% endif %}
 </article>
 {% endfor %}
+
 {% else %}
 <article class="media">
     <div class="media-content">
         <div class="content has-text-centered">
-            <p>There are no Short URls.</p>
+            <p>There are no Records in this Blog you're the first one. Let's create something awesome.....</p>
         </div>
     </div>
 </article>
 {% endif %}
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-            const $notification = $delete.parentNode;
 
-            $delete.addEventListener('click', () => {
-                $notification.parentNode.removeChild($notification);
-            });
-        });
-    });
-</script>
 {% endblock %}
 
 

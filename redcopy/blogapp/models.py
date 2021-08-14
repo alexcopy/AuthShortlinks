@@ -10,7 +10,7 @@ User = get_user_model()
 class Post(models.Model):
     title = models.CharField(max_length=280)
     text = HTMLField()
-    slug = models.CharField(max_length=280)
+    slug = models.SlugField()
     hidden = models.BooleanField(default=False)
     date_hidden = models.DateTimeField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -21,7 +21,7 @@ class Post(models.Model):
         return self.text
 
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={
+        return reverse('post_view', kwargs={
             'pk': self.pk
         })
 
@@ -46,4 +46,3 @@ class PostView(models.Model):
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField()

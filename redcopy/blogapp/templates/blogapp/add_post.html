@@ -1,0 +1,32 @@
+{% extends 'shorturlsapp/base.html' %}
+{% block title %}Home{% endblock %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block main_title %}Add New Post{% endblock %}
+{% block sub_title %} Hit new button to Create a new blog record{% endblock %}
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+    <div class="field">
+        <p class="control">
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                {{ field }}
+            </div>
+        </div>
+        </p>
+    </div>
+    {% if field.errors %}
+    <div class="notification is-danger is-light">
+        <button class="delete"></button>
+        {{ field.errors }}
+    </div>
+    {% endif %}
+
+    {% endfor %}
+    <button class="is-success button">Post it</button>
+</form>
+
+{% endblock %}

@@ -14,11 +14,15 @@
                 Create Short URL
             </a>
             <a class="navbar-item" href="/blog">
-                My Blog
+                All Posts
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item">
-                Report an issue
+            <a class="navbar-item" href="{% url 'addpost' %}">
+                Add Post
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item"  href="{% url 'myposts' %}">
+                Get My Posts
             </a>
             {% endif %}
         </div>

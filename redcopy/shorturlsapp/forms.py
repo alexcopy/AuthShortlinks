@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 
 class PostForm(ModelForm):
     def clean(self, *args, **kwargs):
-        origin_url=self.cleaned_data.get('origin_url')
+        origin_url = self.cleaned_data.get('origin_url')
         if not origin_url:
             raise ValidationError("Empty URL")
 

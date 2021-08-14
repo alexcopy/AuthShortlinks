@@ -34,7 +34,9 @@ def index(request):
 
 
 @login_required
-def short_url(request, rnd_string):
+def short_url(request, rnd_string=''):
+    if len(rnd_string) < 4:
+        return redirect('index')
     context = {'host': request.build_absolute_uri('/')[:-1], 'rnd_key': rnd_string}
     return render(request, 'shorturlsapp/redirect.html', context)
 
