@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'shorturlsapp',
-    'crispy_forms',
     'accounts',
     'blogapp',
     'tinymce',
