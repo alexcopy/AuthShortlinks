@@ -1,0 +1,18 @@
+{% extends 'shorturlsapp/base.html' %}
+{% block title %}Delete Post{% endblock %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block main_title %}Delete Post: {{post.title}}{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="columns">
+        <div class="column is-three-fifths">
+            <button class="is-danger button">Delete the Post</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

@@ -36,7 +36,7 @@ def index(request):
 @login_required
 def short_url(request, rnd_string=''):
     if len(rnd_string) < 4:
-        return redirect('index')
+        return redirect('short_index')
     context = {'host': request.build_absolute_uri('/')[:-1], 'rnd_key': rnd_string}
     return render(request, 'shorturlsapp/redirect.html', context)
 
@@ -47,7 +47,7 @@ def delete_shorturl(request, url_id):
     sh_url = ShortLinks.objects.get(id=url_id)
     if sh_url.user == request.user:
         sh_url.delete()
-    return redirect('index')
+    return redirect('short_index')
 
 
 def shorturl(request, rnd_string):

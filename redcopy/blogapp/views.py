@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -33,8 +33,8 @@ class IndexPostsViewByUser(generic.ListView):
 
 class AddPostView(generic.CreateView):
     model = Post
+    form_class = forms.PostForm
     template_name = 'blogapp/add_post.html'
-    fields = ['title', 'text']
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -68,8 +68,8 @@ class PostDetailView(DetailView):
 
 
 class PostListView(ListView):
-    form = forms.PostForm
     model = Post
+    form = forms.PostForm
     template_name = 'blogapp/index.html'
     paginate_by = 1
 
@@ -80,5 +80,16 @@ class PostListView(ListView):
         context['page_request_var'] = "page"
         context['form'] = self.form
         return context
+
+
+class UpdatePostView(UpdateView):
+    model = Post
+    form_class = forms.EditForm
+    template_name = "blogapp/edit_post.html"
+
+class DeletePostView(DeleteView):
+    model = Post
+    template_name = "blogapp/delete_post.html"
+    success_url =reverse_lazy('indexblog')
 
 

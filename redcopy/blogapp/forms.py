@@ -1,7 +1,6 @@
-from django.forms import TextInput
+from django.forms import ModelForm, TextInput, Textarea
+from django.core.exceptions import ValidationError
 from tinymce.widgets import TinyMCE
-
-from django import forms
 
 from .models import Post
 
@@ -11,11 +10,31 @@ class TinyMCEWidget(TinyMCE):
         return False
 
 
-class PostForm(forms.ModelForm):
+class PostForm(ModelForm):
+    def clean(self, *args, **kwargs):
+        title = self.cleaned_data.get('title')
+        if not title:
+            raise ValidationError("Empty Title")
+
+    class Meta:
+        model = Post
+        fields = ['title', 'text']
+        widgets = {
+            'title': TextInput(attrs={'class': 'input is-normal', 'maxlength':"10",'placeholder': 'Post Title '}),
+            'text': TinyMCE(attrs={"class": "textarea", "placeholder": "Add Post Text here "}),
+        }
+
+
+class EditForm(ModelForm):
+    def clean(self, *args, **kwargs):
+        title = self.cleaned_data.get('title')
+        if not title:
+            raise ValidationError("Empty Title")
+
     class Meta:
         model = Post
         fields = ['title', 'text']
         widgets = {
             'title': TextInput(attrs={'class': 'input', 'placeholder': 'Post Title '}),
-            'text': TinyMCE(attrs={'class': 'input'}),
+            'text': TinyMCE(attrs={"class": "textarea", "placeholder": "Add Post Text here "}),
         }

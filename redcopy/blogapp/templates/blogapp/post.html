@@ -7,14 +7,17 @@
 <article class="media mt-5">
     <div class="media-content">
         <div class="content">
-        <div class="media-left">
-            {{post.text}}
-        </div>
+            <div class="media-left">
+                {{post.text}}
+            </div>
             <li>
                 <small>Article is added: {{ post.created_at| naturaltime }}</small>
                 <span>Author: {{post.created_by.username}}</span>
                 <br>
             </li>
+            <br />
+            <br />
+            <a href="{% url 'indexblog' %}"  class="button"> go Back</a>
         </div>
     </div>
 </article>

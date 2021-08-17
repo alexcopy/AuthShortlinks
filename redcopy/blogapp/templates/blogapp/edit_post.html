@@ -1,9 +1,9 @@
 {% extends 'shorturlsapp/base.html' %}
-{% block title %}Home{% endblock %}
+{% block title %}Edit/Update Post{% endblock %}
 {% load humanize %}
 {% load crispy_forms_tags %}
-{% block main_title %}Add New Post{% endblock %}
-{% block sub_title %} Hit new button to Create a new blog record{% endblock %}
+{% block main_title %}Update Post{% endblock %}
+
 {% block content %}
 
 <form method="post">
@@ -28,10 +28,9 @@
             {% endif %}
 
             {% endfor %}
-            <button class="is-success button">Post it</button>
+            <button class="is-success button">Update your post</button>
         </div>
-        </div>
-
+    </div>
 </form>
 
 {% endblock %}

@@ -14,17 +14,19 @@
                 <strong><a href="{% url 'post_view' post.pk %}">{{ post.title }}</a>  | </strong>
                 <small> Added: {{ post.created_at| naturaltime }}</small>
                 <span>Author: {{post.created_by.username}}</span>
-                <br>
+                <p> {{post.text}}</p>
             </li>
         </div>
     </div>
     {% if post.created_by == request.user %}
-    <div class="media-right">
-        <a href="{% url 'delete_post' post.id %}" class="delete"></a>
+    <div class="buttons has-addons">
+        <a class="button is-small is-success" href="{% url 'post_edit' post.pk %}" >edit</a>
+        <a class="button is-small is-danger" href="{% url 'post_delete' post.pk %}" >del</a>
     </div>
+
     {% elif user.is_authenticated %}
     <div class="media-right">
-        <a><span class="tag is-warning">view post</span></a>
+        <a href="{% url 'post_view' post.pk %}" ><span class="tag is-warning"  >view post</span></a>
     </div>
     {% endif %}
 </article>

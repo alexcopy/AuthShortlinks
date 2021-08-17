@@ -21,19 +21,8 @@ class Post(models.Model):
         return self.text
 
     def get_absolute_url(self):
-        return reverse('post_view', kwargs={
-            'pk': self.pk
-        })
+        return reverse('indexblog')
 
-    def get_update_url(self):
-        return reverse('post-update', kwargs={
-            'pk': self.pk
-        })
-
-    def get_delete_url(self):
-        return reverse('post-delete', kwargs={
-            'pk': self.pk
-        })
 
 
 class PostView(models.Model):

@@ -10,10 +10,10 @@
                 Docs
             </a>
 
-            <a class="navbar-item" href="/short">
+            <a class="navbar-item" href="/short/">
                 Create Short URL
             </a>
-            <a class="navbar-item" href="/blog">
+            <a class="navbar-item" href="{% url 'indexblog' %}">
                 All Posts
             </a>
             <hr class="navbar-divider">
@@ -21,8 +21,8 @@
                 Add Post
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item"  href="{% url 'myposts' %}">
-                Get My Posts
+            <a class="navbar-item" href="{% url 'myposts' %}">
+                Show only My Posts
             </a>
             {% endif %}
         </div>
