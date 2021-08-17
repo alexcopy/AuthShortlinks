@@ -2,14 +2,14 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
-from tinymce.models import HTMLField
+
 
 User = get_user_model()
 
 
 class Post(models.Model):
     title = models.CharField(max_length=280)
-    text = HTMLField()
+    text = models.TextField()
     slug = models.SlugField()
     hidden = models.BooleanField(default=False)
     date_hidden = models.DateTimeField(blank=True, null=True)

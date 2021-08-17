@@ -5,9 +5,7 @@ name = "pypi"
 
 [packages]
 django = "3.2.6"
-django-tinymce = "3.3.0"
 pillow = "8.1.2"
-django-crispy-forms = "1.12.0"
 
 [requires]
 python_version = "3.9"
