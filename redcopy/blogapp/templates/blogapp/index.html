@@ -1,0 +1,47 @@
+{% extends 'shorturlsapp/base.html' %}
+{% block title %}Posts List View{% endblock %}
+{% load humanize %}
+{% block main_title %}The Blog {% endblock %}
+{% block content %}
+
+
+{% if blog_posts %}
+{% for post in blog_posts %}
+<article class="media mt-5">
+    <div class="media-content">
+        <div class="content">
+            <li>
+                <strong><a href="{% url 'post_view' post.pk %}">{{ post.title }}</a>  | </strong>
+                <small> Added: {{ post.created_at| naturaltime }}</small>
+                <span>Author: {{post.created_by.username}}</span>
+                <p> {{post.text}}</p>
+            </li>
+        </div>
+    </div>
+    {% if post.created_by == request.user %}
+    <div class="buttons has-addons">
+        <a class="button is-small is-success" href="{% url 'post_edit' post.pk %}" >edit</a>
+        <a class="button is-small is-danger" href="{% url 'post_delete' post.pk %}" >del</a>
+    </div>
+
+    {% elif user.is_authenticated %}
+    <div class="media-right">
+        <a href="{% url 'post_view' post.pk %}" ><span class="tag is-warning"  >view post</span></a>
+    </div>
+    {% endif %}
+</article>
+{% endfor %}
+
+{% else %}
+<article class="media">
+    <div class="media-content">
+        <div class="content has-text-centered">
+            <p>There are no Records in this Blog you're the first one. Let's create something awesome.....</p>
+        </div>
+    </div>
+</article>
+{% endif %}
+
+{% endblock %}
+
+

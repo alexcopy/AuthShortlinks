@@ -1,0 +1,36 @@
+{% extends 'shorturlsapp/base.html' %}
+{% block title %}Edit/Update Post{% endblock %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block main_title %}Update Post{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+    <div class="columns">
+        <div class="column is-three-fifths">
+            <div class="field">
+                <p class="control">
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        {{ field }}
+                    </div>
+                </div>
+                </p>
+            </div>
+            {% if field.errors %}
+            <div class="notification is-danger is-light">
+                <button class="delete"></button>
+                {{ field.errors }}
+            </div>
+            {% endif %}
+
+            {% endfor %}
+            <button class="is-success button">Update your post</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
