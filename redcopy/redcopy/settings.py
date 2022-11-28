@@ -1,4 +1,4 @@
-
+import os
 from pathlib import Path
 from django.conf import settings
 
@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-ny4n*w8l40l&loqd9wyxxk22c@c=y-l6b8k@xa15h&hl4pm=1g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 
@@ -115,11 +115,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+STATICFILES_DIRS = (
+    os.path.join(SITE_ROOT, 'static/'),
+)
 STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
