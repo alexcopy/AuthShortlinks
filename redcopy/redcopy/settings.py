@@ -115,8 +115,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-SITE_ROOT = "/home/redcopy/py_hill/redcopy/static/"
-
+SITE_ROOT = os.path.abspath(os.curdir)
+print(SITE_ROOT)
+print(SITE_ROOT)
+print(SITE_ROOT)
+print(SITE_ROOT)
+STATICFILES_DIRS = (
+    os.path.join(SITE_ROOT, 'static/'),
+)
 STATIC_URL = '/static/'
 
 # Default primary key field type
