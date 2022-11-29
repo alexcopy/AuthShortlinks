@@ -1,34 +1,63 @@
 {% block nav %}
 <nav class="navbar" role="navigation" aria-label="main navigation">
-    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-    </a>
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        </a>
+
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item">
+            <a class="navbar-item" href="/">
                 Home
             </a>
             {% if user.is_authenticated %}
-            <a class="navbar-item">
-                Docs
-            </a>
 
-            <a class="navbar-item navbar-burger" href="/short/">
-                Create Short URL
-            </a>
-            <a class="navbar-item navbar-burger" href="{% url 'indexblog' %}">
-                All Posts
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item navbar-burger" href="{% url 'addpost' %}">
-                Add Post
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item" href="{% url 'myposts' %}">
-                Show only My Posts
-            </a>
+            <div class="navbar-item has-dropdown is-hoverable" style="color: darkred">
+                <a class="navbar-link">
+                    Daily...
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/short/">
+                        <strong>Cams All Files</strong>
+                    </a>
+                    <a class="navbar-item" href="/short/">
+                        <strong>Meters</strong>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="navbar-item has-dropdown is-hoverable"  style="color: darkred">
+                <a class="navbar-link">
+                    Proj
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/short/">
+                        <strong>Create Short URL</strong>
+                    </a>
+                    <a class="navbar-item" href="{% url 'indexblog' %}">
+                        All Posts
+                    </a>
+
+                    <a class="navbar-item" href="{% url 'addpost' %}">
+                        Add Post
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="{% url 'myposts' %}">
+                        Show only My Posts
+                    </a>
+                </div>
+            </div>
+
             {% endif %}
         </div>
 
@@ -36,9 +65,9 @@
             <div class="navbar-item">
                 <div class="buttons">
                     {% if user.is_authenticated %}
-                    <a class="button is-warning" href="{% url 'logout' %}">Logout</a>
+                    <a class="button is-warning" href="{% url 'logout' %}"><strong>Log Out</strong></a>
                     {% else %}
-                    <a class="button is-warning" href="{% url 'login' %}">Login</a>
+                    <a class="button is-warning" href="{% url 'login' %}"><strong>Log In</strong></a>
                     {% endif %}
                 </div>
             </div>
@@ -52,23 +81,24 @@
         // Get all "navbar-burger" elements
         const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-        // Add a click event on each of them
-        $navbarBurgers.forEach( el => {
-            el.addEventListener('click', () => {
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
 
-                // Get the target from the "data-target" attribute
-                const target = el.dataset.target;
-                const $target = document.getElementById(target);
+            // Add a click event on each of them
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+                    // Get the target from the "data-target" attribute
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+                    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
 
-                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-                el.classList.toggle('is-active');
-                $target.classList.toggle('is-active');
-
+                });
             });
-        });
+        }
 
     });
-
 </script>
 
 {% endblock %}
