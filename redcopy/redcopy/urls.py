@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from shorturlsapp import views as shortviews
 from blogapp import views as blogviews
+from pondtemp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,5 +12,6 @@ urlpatterns = [
     path('/', include('shorturlsapp.urls')),
     path('', include('shorturlsapp.urls')),
     path('short/', include('shorturlsapp.urls')),
+    path('pondtemp/', include('pondtemp.urls')),
     re_path(r'(?P<rnd_string>\w{5})$', shortviews.shorturl),
 ]
