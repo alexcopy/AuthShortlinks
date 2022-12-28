@@ -1,6 +1,5 @@
 {% load pondtemp_filter %}
 {% block pagination %}
-
 {% if pagination.last_page > 1 %}
 <nav class="pagination is-small" role="navigation" aria-label="pagination">
     {% if pagination.prev_page_url %}
@@ -11,6 +10,9 @@
     {% endif %}
     <ul class="pagination-list">
         {% for link in pagination.links %}
+            {%if link.label == "..."%}
+                <span class="pagination-ellipsis">&hellip;</span>
+            {% endif %}
             {% if link.url %}
                 {% if link.active %}
                 <li><a class="pagination-link is-current" href="{{link.url|pondtemp_filter}}" aria-label="{{link.label}}"
