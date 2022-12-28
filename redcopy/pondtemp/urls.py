@@ -8,11 +8,11 @@ urlpatterns = [
     path('meters', views.meters, name='pondmeters'),
     path('cams',  views.cams, name='allcams'),
     path('allfiles/details/',  views.cams_harvest_details, name='camsdetailes'),
+
+
+
+    # path(r'^api/(?P<path>.*)$', RedirectView.as_view(url='/pondtemp/%(path)s')),
     # path('api',  views.cams_harvest_details, name='camsdetailes'),
-    path(r'^api/(?P<path>.*)$', RedirectView.as_view(url='/pondtemp/%(path)s')),
-
-
-
     # path('', views.IndexPostsView.as_view(), name='indexblog'),
     # path('myposts', views.IndexPostsViewByUser.as_view(), name='myposts'),
     # path('add_post/', views.AddPostView.as_view(), name='addpost'),
