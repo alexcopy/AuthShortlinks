@@ -1,9 +1,16 @@
+from django.template.defaulttags import url
 from django.urls import path, include, re_path
+from django.views.generic import RedirectView
+
 from . import views
 
 urlpatterns = [
     path('meters', views.meters, name='pondmeters'),
-    path('cams',  views.cams, name='allcams')
+    path('cams',  views.cams, name='allcams'),
+    path('allfiles/details/',  views.cams_harvest_details, name='camsdetailes'),
+    # path('api',  views.cams_harvest_details, name='camsdetailes'),
+    path(r'^api/(?P<path>.*)$', RedirectView.as_view(url='/pondtemp/%(path)s')),
+
 
 
     # path('', views.IndexPostsView.as_view(), name='indexblog'),

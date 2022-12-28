@@ -3,30 +3,62 @@
 {% load humanize %}
 {% block main_title %}The Blog {% endblock %}
 {% block content %}
-<div >
-    <example-component></example-component>
-</div>
-<br/>
-<br/>
-<br/>
-<div class="row">
-    <div class="chart">
-        <div id="qty"></div>
+
+
+<div class="columns is-multiline">
+    <div class="column is-3">
+
+        <div class="table-container">
+            <table class="table">
+                <!-- Your table content -->
+                {% for value, key in cams.dirFiles.files_count.items%}
+                <tr>
+                    <td><a href="/pondtemp/allfiles/details/?q=showtoday&subcat={{value}}"> {{value}}</a></td>
+                    <td></td>
+                    <td><span class="tag is-rounded is-info is-light">{{key}}</span></td>
+
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-</div>
-<br>
-<br>
+    <div class="column is-3">
+        <table class="table">
+            <!-- Your table content -->
+            {% for value, key in cams.dirFiles.changed.items%}
+            <tr>
+                <td>{{value}}</td>
+                <td></td>
+                <td><span class="tag is-rounded is-info is-light" name="seen">{{ key}}</span></td>
 
-<h4>Time Line</h4>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="column is-3">
+        <table class="table">
+            <!-- Your table content -->
+            {% for value, key in cams.dirFiles.dirs.items%}
+            <tr>
+                <td>{{value}}</td>
+                <td></td>
+                <td><span class="tag is-rounded is-info is-light">{{key}}</span></td>
 
-<div class="row">
-    <div class="col-sm-3">
-        <table id="filestimeline" class="table table-responsive table-bordered">
-
+            </tr>
+            {% endfor %}
         </table>
     </div>
 </div>
-<div class="row">
-
-</div>
+<script>
+    document.getElementsByName("seen").forEach((input) => {
+        last_seen = 1 * input.innerText;
+        if (last_seen > 1600) {
+            input.classList.add('is-danger');
+            input.classList.remove('is-info');
+            input.innerText = 'error';
+        } else {
+            input.innerText = 'OK';
+        }
+    })
+</script>
 {% endblock %}

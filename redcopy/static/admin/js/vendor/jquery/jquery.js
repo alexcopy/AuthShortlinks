@@ -4307,7 +4307,7 @@ Data.prototype = {
 		//   1. No key was specified
 		//   2. A string key was specified, but no value provided
 		//
-		// Take the "read" path and allow the get method to determine
+		// Take the "read" url_add and allow the get method to determine
 		// which value to return, respectively either:
 		//
 		//   1. The entire cache object
@@ -4327,8 +4327,8 @@ Data.prototype = {
 		//
 		this.set( owner, key, value );
 
-		// Since the "set" path can have two possible entry points
-		// return the expected data based on which path was taken[*]
+		// Since the "set" url_add can have two possible entry points
+		// return the expected data based on which url_add was taken[*]
 		return value !== undefined ? value : key;
 	},
 	remove: function( owner, key ) {
@@ -4397,7 +4397,7 @@ var dataUser = new Data();
 //	3. Use the same single mechanism to support "private" and "user" data.
 //	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
 //	5. Avoid exposing implementation details on user objects (eg. expando properties)
-//	6. Provide a clear path for implementation upgrade to WeakMap in 2014
+//	6. Provide a clear url_add for implementation upgrade to WeakMap in 2014
 
 var rbrace = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,
 	rmultiDash = /[A-Z]/g;
@@ -5578,7 +5578,7 @@ jQuery.event = {
 					leverageNative( el, "click" );
 				}
 
-				// Return non-false to allow normal event-path propagation
+				// Return non-false to allow normal event-url_add propagation
 				return true;
 			},
 
@@ -5850,7 +5850,7 @@ jQuery.each( { focus: "focusin", blur: "focusout" }, function( type, delegateTyp
 			// Force setup before trigger
 			leverageNative( this, type );
 
-			// Return non-false to allow normal event-path propagation
+			// Return non-false to allow normal event-url_add propagation
 			return true;
 		},
 
@@ -8685,7 +8685,7 @@ jQuery.extend( jQuery.event, {
 			return;
 		}
 
-		// Determine event propagation path in advance, per W3C events spec (#9951)
+		// Determine event propagation url_add in advance, per W3C events spec (#9951)
 		// Bubble up to document, then to window; watch for a global ownerDocument var (#9724)
 		if ( !onlyHandlers && !special.noBubble && !isWindow( elem ) ) {
 
@@ -8704,7 +8704,7 @@ jQuery.extend( jQuery.event, {
 			}
 		}
 
-		// Fire handlers on the event path
+		// Fire handlers on the event url_add
 		i = 0;
 		while ( ( cur = eventPath[ i++ ] ) && !event.isPropagationStopped() ) {
 			lastElement = cur;

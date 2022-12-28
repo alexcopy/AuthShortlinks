@@ -68,7 +68,7 @@ var requirejs, require, define;
 
     /**
      * Given a relative module name, like ./something, normalize it to
-     * a real name that can be mapped to a path.
+     * a real name that can be mapped to a url_add.
      * @param {String} name the relative name
      * @param {String} baseName a real name that the name arg is relative
      * to.
@@ -113,8 +113,8 @@ var requirejs, require, define;
                     i -= 1;
                 } else if (part === '..') {
                     // If at the start, or previous value is still ..,
-                    // keep them so that when converted to a path it may
-                    // still work when converted to a path, even though
+                    // keep them so that when converted to a url_add it may
+                    // still work when converted to a url_add, even though
                     // as an ID it is less than ideal. In larger point
                     // releases, may be better to just kick out an error.
                     if (i === 0 || (i === 1 && name[2] === '..') || name[i - 1] === '..') {
@@ -338,7 +338,7 @@ var requirejs, require, define;
                 map = makeMap(deps[i], relParts);
                 depName = map.f;
 
-                //Fast path CommonJS standard dependencies.
+                //Fast url_add CommonJS standard dependencies.
                 if (depName === "require") {
                     args[i] = handlers.require(name);
                 } else if (depName === "exports") {
@@ -5170,7 +5170,7 @@ S2.define('select2/defaults',[
           languageData = Translation.loadPath(language);
         } catch (e) {
           try {
-            // If we couldn't load it, check if it wasn't the full path
+            // If we couldn't load it, check if it wasn't the full url_add
             language = this.defaults.amdLanguageBase + language;
             languageData = Translation.loadPath(language);
           } catch (ex) {

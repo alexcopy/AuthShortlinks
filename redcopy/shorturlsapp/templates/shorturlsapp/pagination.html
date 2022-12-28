@@ -1,0 +1,28 @@
+{% load pondtemp_filter %}
+{% block pagination %}
+
+{% if pagination.last_page > 1 %}
+<nav class="pagination is-small" role="navigation" aria-label="pagination">
+    {% if pagination.prev_page_url %}
+    <a class="pagination-previous" href="{{pagination.prev_page_url|pondtemp_filter }}">Prev</a>
+    {% endif %}
+    {% if pagination.next_page_url %}
+    <a class="pagination-next" href="{{pagination.next_page_url|pondtemp_filter }}">Next page</a>
+    {% endif %}
+    <ul class="pagination-list">
+        {% for link in pagination.links %}
+            {% if link.url %}
+                {% if link.active %}
+                <li><a class="pagination-link is-current" href="{{link.url|pondtemp_filter}}" aria-label="{{link.label}}"
+                       aria-current="page">{{link.label}}</a></li>
+                {% else %}
+                <li><a class="pagination-link" href="{{link.url|pondtemp_filter}}"
+                       aria-label="{{link.label}}">{{link.label|pondtemp_filter}}</a></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+    </ul>
+</nav>
+{%endif%}
+{% endblock %}

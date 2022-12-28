@@ -1,0 +1,31 @@
+{% extends 'shorturlsapp/base.html' %}
+
+{% block title %}Pond Meters{% endblock %}
+{% load humanize %}
+{% block main_title %}Pond Meters{% endblock %}
+{% block content %}
+{% load pondtemp_filter %}
+
+{% include 'shorturlsapp/pagination.html' with pagination=pagination.pagination %}
+
+<div class="columns is-multiline">
+    {% for picture in pictures %}
+    <div class="column is-2">
+        <div class="card">
+
+            <div class="card-image">
+                <figure class="image is-3by2">
+                    <img src="{{picture.imgpath}}" alt="">
+                </figure>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+
+</div>
+{% include 'shorturlsapp/pagination.html' %}
+
+{% endblock %}
