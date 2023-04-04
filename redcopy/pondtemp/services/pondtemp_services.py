@@ -55,17 +55,21 @@ def single_cam_details(request):
         limit = int(request.GET.get("limit", IMG_PER_PAGE))
 
         path_info = request.GET.get("subcat", request.GET.get("folder"))
-        page = int(request.GET.get("page", 1))
-        sub_query = f"{stats_type}&folder={path_info}"
-        page_content = _json_page(slug, sub_query, page, limit)
+        subcat = request.GET.get("subfolder", '')
 
-        data =[]
+        if not subcat == '':
+            subcat = f"&subfolder={subcat}"
+
+        page = int(request.GET.get("page", 1))
+        sub_query = f"{stats_type}&folder={path_info}{subcat}"
+        page_content = _json_page(slug, sub_query, page, limit)
+        data = []
 
         for l in page_content['pictures']['data']:
-                if not type(l)==dict:
-                    data.append(page_content['pictures']['data'][l])
-                else:
-                    data.append(l)
+            if not type(l) == dict:
+                data.append(page_content['pictures']['data'][l])
+            else:
+                data.append(l)
 
         if not page_content:
             return {'data': '', 'pagination': ''}
@@ -73,3 +77,15 @@ def single_cam_details(request):
     except Exception as ex:
         print(ex)
         return {'data': '', 'pagination': ''}
+
+
+def single_cam_stats(request):
+    try:
+        slug = request.path_info.replace('pondtemp', '', 1)
+        page = int(request.GET.get("page", 1))
+        limit = int(request.GET.get("limit", 20))
+        page_content = _json_page(slug, '', page=page, limit=limit)
+        return {'data': page_content['result']['data'], 'pagination': page_content["result"]}
+    except Exception as e:
+        print(e)
+        return {"data": "", 'pagination': ''}

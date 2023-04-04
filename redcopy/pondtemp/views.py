@@ -16,5 +16,10 @@ def meters(request):
 
 def cams_harvest_details(request):
     page_content = pondtemp_services.single_cam_details(request)
-
     return render(request, 'cams_details.html', {'pictures': page_content['data'], 'pagination': page_content})
+
+
+def cam_stats(request, name):
+    cont = pondtemp_services.single_cam_stats(request)
+    return render(request, 'cam_stats.html',
+                  {'data': cont['data'], 'pagination': cont['pagination'], 'name': name})

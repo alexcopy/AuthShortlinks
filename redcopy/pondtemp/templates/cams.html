@@ -40,7 +40,7 @@
             <!-- Your table content -->
             {% for value, key in cams.dirFiles.dirs.items%}
             <tr>
-                <td>{{value}}</td>
+                <td><a href="/pondtemp/showfolder/{{value}}"> {{value}}</a></td>
                 <td></td>
                 <td><span class="tag is-rounded is-info is-light">{{key}}</span></td>
 

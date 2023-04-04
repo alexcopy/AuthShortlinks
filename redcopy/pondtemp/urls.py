@@ -8,6 +8,8 @@ urlpatterns = [
     path('meters', views.meters, name='pondmeters'),
     path('cams',  views.cams, name='allcams'),
     path('allfiles/details/',  views.cams_harvest_details, name='camsdetailes'),
+    path('showfolder/<str:name>', views.cam_stats, name='archive_cam_stats'),
+
 
 
 
